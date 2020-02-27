@@ -1,4 +1,4 @@
-[
+export const myInsults = [
 {"id":"1","description":"You're going to make an excellent belt!"},
 {"id":"2","description":"I don't know whether to use charm person or hold monster!"},
 {"id":"3","description":"I've seen more threatening geckos!"},
@@ -60,4 +60,4 @@
 {"id":"59","description":"Wow... You're amazing! Wait... No, what's the opposite of amazing? Oh, yeah, shit! You're shit at this!"},
 {"id":"60","description":"It's the emptiest vessel that makes the loudest sounds"},
 {"id":"61","description":"Hell must be empty 'cause the devil is here"}
-]
+];

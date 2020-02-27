@@ -1,4 +1,4 @@
-[
+export const myInspos = [
 {"id":"1","description":"You shall remember this victory forever.","category":"Heartening","recipient":"Others","source":""},
 {"id":"2","description":"One day, your grandchildren shall tell the tale of this moment.","category":"Heartening","recipient":"Others","source":""},
 {"id":"3","description":"You know your worth. It's time to show it.","category":"Heartening","recipient":"Others","source":""},
@@ -82,4 +82,4 @@
 {"id":"81","description":"Someday, someone will best me. But it won't be today, and it won't be you.","category":"Heartening","recipient":"Self","source":""},
 {"id":"82","description":"They've got us surrounded. The poor bastards","category":"Bold","recipient":"Others","source":""},
 {"id":"83","description":"You can try to run and live another day. You can hope and pray that death won't take you on his way. You looked upon me and sealed your fate. But try and run for the hunt will be so fun, but you will only die tired at the end. Death comes for you today.","category":"Bold","recipient":"Self","source":""}
-]
+];
