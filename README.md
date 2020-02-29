@@ -1,24 +1,15 @@
 # vue-bard-app
 
-## Project setup
-```
-npm install
-```
+## How it works
+* Click Inspire button for a random inspirational quote
+* Click Mock button for a random insult
+* Click Clear to clear the random generation
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Data for random quotes/insults
+Data currently comes from static local js files
+* inspos.js
+* mockeries.js
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Future updates
+* Add functionality to add/remove data from list of inspos/mockeries
+* Read data from remote database so it can be updated

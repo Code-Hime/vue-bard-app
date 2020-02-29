@@ -2,32 +2,39 @@
   <div class="main">
     <div class="content-container">
       <div class="section content-title-group">
-        <h1 class="title">Bardic Words</h1>
+        <h1 class="title">Bardic Works</h1>
       </div>
+    </div>
 
+    <div>
+      <TabCard :tabs="tabs" :initialTab="initialTab">
+        <template slot="tab-head-inspo">
+          <div @click="defaultDisplay = true">Inspire</div>
+        </template>
+
+        <template slot="tab-panel-inspo">
+          <p class="default-desc" v-if="defaultDisplay == true">Inspire your comrades or yourself with Bardic Inspiration!</p>
+          <div v-else>
+            <p class="tab-desc-inspo">{{ inspo.description }}</p>
+            <p class="source">{{ fullSource }}</p>
+          </div>
+          <div>
+            <a class="link" @click="inspireMe()">Inspire!</a>
+          </div>
+        </template>
+
+        <template slot="tab-head-insult">
+          <div @click="defaultDisplay = true">Insult</div>
+        </template>
+
+        <template slot="tab-panel-insult">
+          <p class="default-desc" v-if="defaultDisplay == true">Bring your enemies down a size with Vicious Mockery!</p>
+          <p class="tab-desc-insult" v-else><b>{{ insult.description }}</b></p>
+          <a class="link" @click="mockMe()">Mock!</a>
+        </template>
+      </TabCard>
     </div>
-  <div>
-    <div class="card">
-        <div class="card-content">
-          <div class="content" v-if="selectedButton === 'inspire'">
-            {{ inspo.description }} {{ fullSource }}
-          </div>
-          <div class="content" v-else-if="selectedButton === 'insult'">
-            {{ insult.description }}
-          </div>
-          <div class="default-content" v-else>
-            <h2>Click to:</h2>
-            <p>Inspire your comrades or yourself with Bardic Inspiration!</p>
-            <p>Bring your enemies down a size with Vicious Mockery!</p>
-          </div>
-        </div>
-        <footer class="card-footer">
-          <button class="button is-primary" @click="inspireMe()">Inspire!</button>
-          <button class="button is-danger" @click="mockMe()">Mock!</button>
-          <button class="button is-warning" @click="clear()">Clear</button>
-        </footer>
-      </div>
-    </div>
+
   </div>
 </template>
 
@@ -36,9 +43,13 @@ import { lifecycleHooks } from "../shared/logging-mixin";
 import { logger } from "../shared/logger";
 import { myInspos } from "../shared/inspos";
 import { myInsults } from "../shared/mockeries";
+import TabCard from '@/components/TabCard';
 
 export default {
   name: "Main",
+  components: {
+    TabCard
+  },
   data() {
     return {
       insults: [],
@@ -46,7 +57,9 @@ export default {
       randomNum: 0,
       insult: 'no insult loaded',
       inspo: 'no inspiring quote loaded',
-      selectedButton: ''
+      defaultDisplay: true,
+      initialTab: 'inspo',
+      tabs: ['inspo', 'insult']
     };
   },
   mixins: [lifecycleHooks],
@@ -85,18 +98,18 @@ export default {
       this.inspos = await this.getInspos();
     },
     async inspireMe() {
-      this.selectedButton = 'inspire';
+      this.clear();
       this.randomNum = Math.floor(Math.random() * this.inspos.length);
       this.inspo = this.inspos[this.randomNum];
     },
     async mockMe() {
-      this.selectedButton = 'insult';
+      this.clear();
       this.randomNum = Math.floor(Math.random() * this.insults.length);
       this.insult = this.insults[this.randomNum];
     },
     clear() {
-      this.selectedButton = '';
-    }
+      this.defaultDisplay = false;
+    },
   }
 };
 </script>
