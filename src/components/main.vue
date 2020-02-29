@@ -19,7 +19,7 @@
             <p class="source">{{ fullSource }}</p>
           </div>
           <div>
-            <a class="link" @click="inspireMe()">Inspire!</a>
+            <a class="link" @click="inspireMe()">Click to Inspire!</a>
           </div>
         </template>
 
@@ -30,7 +30,7 @@
         <template slot="tab-panel-insult">
           <p class="default-desc" v-if="defaultDisplay == true">Bring your enemies down a size with Vicious Mockery!</p>
           <p class="tab-desc-insult" v-else><b>{{ insult.description }}</b></p>
-          <a class="link" @click="mockMe()">Mock!</a>
+          <a class="link" @click="mockMe()">Click to Mock!</a>
         </template>
       </TabCard>
     </div>
