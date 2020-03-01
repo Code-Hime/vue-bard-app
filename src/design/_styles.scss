@@ -74,11 +74,6 @@ html > body {
   padding: 20px 16px;
 }
 
-.tab-title {
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
 .tab-desc-inspo {
   margin-top: 5px;
   margin-bottom: 10px;
@@ -97,7 +92,7 @@ html > body {
   margin-top: 5px;
   margin-bottom: 10px;
   font-family: $insult-font;
-  font-size: 28px;
+  font-size: 32px;
   color: $pink;
 }
 
@@ -109,25 +104,78 @@ html > body {
   color: $primary;
 }
 
-.link {
-  background-color: $primary-light;
-  color: $pink;
-  font-size: 24px;
-  border-top: 1px solid $pink;
-  cursor: pointer;
-  padding: 2px 16px;
-  display: block;
-  width: 100%;
-  height: 50px;
-  text-align: center;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+.inspire-button {
+
+  .link {
+    background-color: $pink;
+    color: $primary-light;
+    font-size: 24px;
+    border-top: 1px solid $pink;
+    cursor: pointer;
+    padding: 2px 16px;
+    display: block;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  
+  .link:hover {
+    background-color: #5c103f;
+    color: $primary-light;
+    text-shadow: 0 0 5px $grey-light;
+  }
 }
 
-.link:hover {
-  background-color: $pink;
-  color: $primary-light;
+.mock-button {
+  .link {
+    background-color: $pink;
+    color: $primary-light;
+    font-size: 24px;
+    border-top: 1px solid $pink;
+    cursor: pointer;
+    padding: 2px 16px;
+    display: block;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  
+  .link:hover {
+    background-color: #5c103f;
+    color: $primary-light;
+    text-shadow: 0 0 5px $grey-light;
+  }
+}
+
+.options {
+  .link {
+    background-color: $primary-light;
+    color: $pink;
+    font-size: 24px;
+    border-top: 1px solid $pink;
+    cursor: pointer;
+    padding: 2px 16px;
+    display: block;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    bottom: 50px;
+  }
+  
+  .link:hover {
+    background-color: #5c103f;
+    color: $primary-light;
+  }
 }
