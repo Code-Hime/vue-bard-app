@@ -17,22 +17,41 @@
             <p>Inspire your comrades or yourself with Bardic Inspiration!</p>
           </div>
           <div v-else>
-            <p class="tab-desc-inspo">{{ inspo.description }}</p>
-            <p class="source">{{ fullSource }}</p>
+            <div class="inspo-display" v-if="inspoDisplay == true">
+              <p class="tab-desc-inspo">{{ inspo.description }}</p>
+              <p class="source">{{ fullSource }}</p>
+            </div>
           </div>
           <div class="options">
             <a class="link" @click="resolveOptions()">Options</a>
           </div>
           <div class="options-display" v-if="options == true">
-            <ul>
-              <li><input type="checkbox" for="opt-self" id="self" value="Self" v-model="checkedTarget" />Inspire Self</li>
-              <li><input type="checkbox" for="opt-other" id="others" value="Others" v-model="checkedTarget" />Inspire Others</li>
-            </ul>
-            <ul>
-              <li><input type="checkbox" for="opt-humor" id="humor" value="Humorous" v-model="checkedFilter" />Humorous Inspiration</li>
-              <li><input type="checkbox" for="opt-bold" id="bold" value="Bold" v-model="checkedFilter" />Bold Inspiration</li>
-              <li><input type="checkbox" for="opt-heart" id="heart" value="Heartening" v-model="checkedFilter" />Heartening Inspiration</li>
-            </ul>
+            <div class="row">
+                <div class="column">
+                <label class="container">
+                  <input type="checkbox" for="opt-self" id="self" value="Self" v-model="checkedTarget" />
+                  <span class="checkmark"></span>Inspire Self
+                </label>
+                </div>
+              <div class="column">
+                <label class="container">
+                  <input type="checkbox" for="opt-other" id="others" value="Others" v-model="checkedTarget" />
+                  <span class="checkmark"></span>Inspire Others
+                </label>
+              </div>
+            </div>
+            <label class="container">
+              <input type="checkbox" for="opt-humor" id="humor" value="Humorous" v-model="checkedFilter" />
+              <span class="checkmark"></span>Humorous Inspiration
+            </label>
+            <label class="container">
+              <input type="checkbox" for="opt-bold" id="bold" value="Bold" v-model="checkedFilter" />
+              <span class="checkmark"></span>Bold Inspiration
+            </label>
+            <label class="container">
+              <input type="checkbox" for="opt-heart" id="heart" value="Heartening" v-model="checkedFilter" />
+              <span class="checkmark"></span>Heartening Inspiration
+            </label>
           </div>
           <div class="inspire-button">
             <a class="link" @click="inspireMe()">Click to Inspire!</a>
@@ -77,6 +96,7 @@ export default {
       insult: 'no insult loaded',
       inspo: 'no inspiring quote loaded',
       defaultDisplay: true,
+      inspoDisplay: false,
       options: false,
       initialTab: 'inspo',
       tabs: ['inspo', 'insult'],
@@ -99,6 +119,33 @@ export default {
       else {
         return '';
       }
+    },
+    recipientFilter() {
+      var targetFilter = [];
+      //create target filter
+      if(this.checkedTarget.length > 0)
+      {
+        this.checkedTarget.forEach(function(rec) {
+          this.targetFilter.push({
+            recipient: rec
+          });
+        })
+      }
+      return targetFilter;
+    },
+    typeFilter() {
+      var typeFilter = [];
+ 
+      //create type filter
+      if (this.checkedFilter.length > 0) 
+      {
+        this.checkedFilter.forEach(function(type) {
+          this.typeFilter.push({
+            type: type
+          });
+        })
+      }
+      return typeFilter;
     }
   },
   methods: {
@@ -121,19 +168,34 @@ export default {
       this.inspos = await this.getInspos();
     },
     async inspireMe() {
-      this.clear();
-      this.randomNum = Math.floor(Math.random() * this.inspos.length);
-      this.inspo = this.inspos[this.randomNum];
+      this.defaultDisplay = false;
+      this.inspoDisplay = true;
+      this.options = false;
+
+      if(this.checkedTarget.length > 0 && this.checkedFilter.length > 0)
+      {
+        this.buildFilterArray();
+        this.randomNum = Math.floor(Math.random() * this.filteredInspos.length);
+        this.inspo = this.filteredInspos[this.randomNum];
+      }
+      else
+      {
+        this.randomNum = Math.floor(Math.random() * this.inspos.length);
+        this.inspo = this.inspos[this.randomNum];
+      }
     },
     async mockMe() {
-      this.clear();
+      this.defaultDisplay = false;
       this.randomNum = Math.floor(Math.random() * this.insults.length);
       this.insult = this.insults[this.randomNum];
     },
-    clear() {
+    clearAll() {
       this.defaultDisplay = false;
+      this.inspoDisplay = false;
     },
     resolveOptions() {
+      this.clearAll();
+
       if (this.options == true) {
         this.options = false;
         this.defaultDisplay = true;
@@ -143,15 +205,17 @@ export default {
         this.defaultDisplay = false;
       }
     },
-    buildFilterArray(/*array, filter*/) {
-      //create target filter
-      
-      //create type filter
+    buildFilterArray() {
+      this.filteredInspos = [];
+
+      var targetFilter = this.recipientFilter();
+      var typeFilter = this.typeFilter();
 
       //create new array from full list filtering above two
-      //this.filteredInspos = this.inspos.filter(inspos, function(inspo) { return inspo.target = target_filter && inspo.type = type_filter});
-      
-      //return new array to inspireMe()
+      if(this.targetFilter.length > 0 && this.typeFilter.length > 0)
+      {
+        this.filteredInspos = this.inspos.filter(({type, recipient}) => targetFilter.some(x => x.recipient === recipient) && typeFilter.some(y => y.type === type));
+      }
     }
   }
 };
