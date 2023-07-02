@@ -1,4 +1,5 @@
-# vue-bard-app
+# vue-bard-app is now DEPRECIATED see Vue 3 running version of the old app here: 
+[Vue Bard App](https://github.com/Code-Hime/bard-app-v1) 
 
 ## How it works
 * Click Inspire button for a random inspirational quote
